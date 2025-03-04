@@ -20,6 +20,20 @@
                 alert('请填写所有配置项。');
             }
         }
+
+        function loadSettings() {
+            const savedApiKey = localStorage.getItem('apiKey');
+            const savedAiModel = localStorage.getItem('aiModel');
+
+            if (savedApiKey) {
+                document.getElementById('api-key').value = savedApiKey;
+            }
+            if (savedAiModel) {
+                document.getElementById('ai').value = savedAiModel;
+            }
+        }
+
+        window.onload = loadSettings;
     </script>
 </head>
 <body>
@@ -32,7 +46,11 @@
             <h2>配置你的 AI 和 API Key</h2>
             <form onsubmit="saveSettings(event)">
                 <label for="ai">AI 配置:</label>
-                <input type="text" id="ai" name="ai" placeholder="输入 AI 配置">
+                <select id="ai" name="ai">
+                    <option value="">选择模型</option>
+                    <option value="deepseek-chat">DeepSeek V3</option>
+                    <!-- 可以在这里添加更多模型 -->
+                </select>
                 
                 <label for="api-key">API Key:</label>
                 <input type="text" id="api-key" name="api-key" placeholder="输入 API Key">
