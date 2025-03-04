@@ -5,7 +5,72 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>chatUML</title>
     <link rel="stylesheet" href="styles.css">
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="./js/marked.min.js"></script>
+    <script src="./js/pako.min.js"></script>
+    <!-- <script src="../chatUML/js/encode.js"></script> -->
+    <script>
+        // 定义编码函数
+        function encode64(data) {
+            let r = '';
+            for (let i = 0; i < data.length; i += 3) {
+                if (i + 2 == data.length) {
+                    r += append3bytes(data[i], data[i + 1], 0);
+                } else if (i + 1 == data.length) {
+                    r += append3bytes(data[i], 0, 0);
+                } else {
+                    r += append3bytes(data[i], data[i + 1], data[i + 2]);
+                }
+            }
+            return r;
+        }
+
+        function append3bytes(b1, b2, b3) {
+            const c1 = b1 >> 2;
+            const c2 = ((b1 & 0x3) << 4) | (b2 >> 4);
+            const c3 = ((b2 & 0xF) << 2) | (b3 >> 6);
+            const c4 = b3 & 0x3F;
+            let r = '';
+            r += encode6bit(c1 & 0x3F);
+            r += encode6bit(c2 & 0x3F);
+            r += encode6bit(c3 & 0x3F);
+            r += encode6bit(c4 & 0x3F);
+            return r;
+        }
+
+        function encode6bit(b) {
+            b = b & 0x3F;
+            if (b < 10) return String.fromCharCode(48 + b);
+            b -= 10;
+            if (b < 26) return String.fromCharCode(65 + b);
+            b -= 26;
+            if (b < 26) return String.fromCharCode(97 + b);
+            b -= 26;
+            if (b == 0) return '-';
+            if (b == 1) return '_';
+            return '?';
+        }
+
+        function encodePlantUML(umlCode) {
+            // 不需要移除 @startuml 和 @enduml
+            const utf8Bytes = new TextEncoder().encode(umlCode);
+            
+            // 调整压缩参数以匹配 PlantUML 的 Deflater
+            const compressed = pako.deflate(utf8Bytes, {
+                level: 9,        // 最高压缩级别
+                raw: true,       // 输出原始数据
+                windowBits: 15   // 匹配 Java Deflater 默认值
+            });
+            
+            return encode64(compressed);
+        }
+
+        // 在加载完成后初始化
+        window.addEventListener('load', () => {
+            if (checkSettings()) {
+                loadHistoryMessages();
+            }
+        });
+    </script>
     <script>
         function checkSettings() {
             const apiKey = localStorage.getItem('apiKey');
@@ -215,23 +280,33 @@
         function updatePlantUMLPreview(message) {
             const plantUMLRegex = /@startuml[\s\S]*?@enduml/g;
             const matches = message.match(plantUMLRegex);
-            const previewArea = document.querySelector('.plantuml-syntax');
-            const titleElement = document.getElementById('plantuml-title');
+            const previewArea = document.querySelector('.uml-preview');
+            const syntaxArea = document.querySelector('.plantuml-syntax');
             
             if (matches && matches.length > 0) {
                 const latestUML = matches[matches.length - 1];
-                if (!previewArea.querySelector('textarea')) {
-                    const textarea = document.createElement('textarea');
-                    textarea.style.width = '100%';
-                    textarea.style.height = 'calc(100% - 40px)';
-                    textarea.style.marginTop = '10px';
-                    textarea.placeholder = '在这里编辑 PlantUML 代码';
-                    previewArea.appendChild(textarea);
+                const encoded = encodePlantUML(latestUML);
+                const previewURL = `https://www.plantuml.com/plantuml/png/${encoded}`;
+                
+                // 更新语法区域
+                syntaxArea.innerHTML = `<h2>plantUML 语法</h2><pre>${latestUML}</pre>`;
+                
+                // 检查是否已存在预览图片
+                let previewImg = previewArea.querySelector('img');
+                if (!previewImg) {
+                    previewImg = document.createElement('img');
+                    previewImg.style.maxWidth = '100%';
+                    previewArea.appendChild(previewImg);
                 }
-                previewArea.querySelector('textarea').value = latestUML;
-                titleElement.style.display = 'none';
-            } else if (titleElement) {
-                titleElement.style.display = 'block';
+                
+                // 添加加载错误处理
+                previewImg.onerror = () => {
+                    previewImg.src = '';
+                    previewImg.alt = '图片加载失败，请检查PlantUML语法是否正确';
+                };
+                
+                previewImg.src = previewURL;
+                previewImg.alt = 'UML预览图';
             }
         }
 
@@ -262,11 +337,11 @@
                     <input type="text" placeholder="给 GPT 发送信息 Enter 发送， Shift Enter 换行" onkeypress="handleKeyPress(event)">
                 </div>
             </div>
-            <div class="uml-preview">
-                <h2>UML 预览</h2>
-            </div>
             <div class="plantuml-syntax">
                 <h2 id="plantuml-title">plantUML 预览</h2>
+            </div>
+            <div class="uml-preview">
+                <h2>UML 预览</h2>
             </div>
         </div>
     </div>

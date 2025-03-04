@@ -61,11 +61,11 @@ body {
     width: 100%;
     padding: 20px;
     margin-bottom: 0;
-    scrollbar-width: thin;
-    scrollbar-color: #ccc transparent;
     max-height: none;
     display: flex;
     flex-direction: column;
+    scrollbar-width: none;  /* Firefox */
+    -ms-overflow-style: none;  /* IE and Edge */
 }
 
 .messages::-webkit-scrollbar {
@@ -178,6 +178,7 @@ body {
     transform: translateY(-1px);
 }
 
+
 .uml-preview {
     grid-row: 2 / 3;
     grid-column: 2 / 3;
@@ -189,6 +190,9 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    overflow-y: auto;
+    scrollbar-width: none;  /* Firefox */
+    -ms-overflow-style: none;  /* IE and Edge */
 }
 
 .plantuml-syntax {
@@ -202,7 +206,11 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    overflow-y: auto;
+    scrollbar-width: none;  /* Firefox */
+    -ms-overflow-style: none;  /* IE and Edge */
 }
+
 
 h2 {
     color: #333;
