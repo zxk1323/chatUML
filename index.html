@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>chatUML</title>
+    <link rel="stylesheet" href="styles.css">
+    <script>
+        function checkSettings() {
+            const apiKey = localStorage.getItem('apiKey');
+            const aiModel = localStorage.getItem('aiModel');
+
+            if (!apiKey || !aiModel) {
+                alert('请先在设置页面配置 API Key 和模型。');
+                location.href = 'settings.html';
+                return false;
+            }
+            return true;
+        }
+
+        function sendMessage() {
+            if (!checkSettings()) return;
+
+            // 模拟请求失败
+            const requestSuccess = false;
+
+            if (!requestSuccess) {
+                alert('请求失败，请检查 API 设置。');
+                location.href = 'settings.html';
+            }
+        }
+
+        function handleKeyPress(event) {
+            if (event.key === 'Enter') {
+                sendMessage();
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="main-container">
+        <div class="sidebar">
+            <div class="menu-item" onclick="location.href='index.html'">🏠</div>
+            <div class="menu-item" onclick="location.href='settings.html'">⚙️</div>
+        </div>
+        <div class="grid-container">
+            <div class="chat-panel">
+                <div class="message">你好，我是你的 ChatUML 助手！我可以帮你绘制 UML 图。</div>
+                <div class="input-box">
+                    <input type="text" placeholder="给 GPT 发送信息 Enter 发送， Shift Enter 换行" onkeypress="handleKeyPress(event)">
+                </div>
+            </div>
+            <div class="uml-preview">
+                <h2>UML 结果预览区</h2>
+            </div>
+            <div class="plantuml-syntax">
+                <h2>plantUML 语法预览区</h2>
+            </div>
+        </div>
+    </div>
+</body>
+</html> 

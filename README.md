@@ -1,10 +1,45 @@
 # chatUML
 
+chatUML 是一个允许你与 UML 图进行交互的工具。
 
-chatUML is a tool that allows you to chat with your UML diagrams.
+## 功能
 
-## Features
+- 与 UML 图进行聊天
+- 从自然语言生成 UML 图
+- 编辑 UML 图
 
-- Chat with your UML diagrams
-- Generate UML diagrams from natural language
-- Edit UML diagrams
+## 前端界面
+
+chatUML 的前端界面使用 HTML 和 CSS 构建，提供了一个简洁美观的用户体验。
+
+## 开发进展
+
+### 1. 基本布局
+
+- 创建了主页面和设置页面。
+- 使用 Flexbox 和 Grid 布局实现了响应式设计。
+
+### 2. 导航栏
+
+- 在主页面和设置页面添加了导航栏，用户可以在主页和设置页面之间切换。
+
+### 3. 聊天功能
+
+- 实现了基本的聊天界面，用户可以通过输入框与 ChatUML 助手进行交互。
+- 用户可以按下回车键发送信息，无需点击发送按钮。
+
+### 4. 设置功能
+
+- 在设置页面，用户可以配置 AI 和 API Key。
+- 配置保存在 `localStorage` 中，便于后续使用。
+
+### 5. 错误处理
+
+- 在用户未配置 API Key 或模型时，提示用户前往设置页面进行配置。
+- 模拟请求失败时，提示用户检查 API 设置。
+
+## 使用说明
+
+1. 打开 `index.html` 访问主页面。
+2. 使用左侧导航栏切换到设置页面进行配置。
+3. 配置完成后，返回主页面与 ChatUML 助手进行交互。

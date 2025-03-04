@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>设置</title>
+    <link rel="stylesheet" href="styles.css">
+    <script>
+        function saveSettings(event) {
+            event.preventDefault();
+            const apiKey = document.getElementById('api-key').value;
+            const aiModel = document.getElementById('ai').value;
+
+            if (apiKey && aiModel) {
+                localStorage.setItem('apiKey', apiKey);
+                localStorage.setItem('aiModel', aiModel);
+                alert('配置已保存！');
+                location.href = 'index.html';
+            } else {
+                alert('请填写所有配置项。');
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="main-container">
+        <div class="sidebar">
+            <div class="menu-item" onclick="location.href='index.html'">🏠</div>
+            <div class="menu-item" onclick="location.href='settings.html'">⚙️</div>
+        </div>
+        <div class="settings-container">
+            <h2>配置你的 AI 和 API Key</h2>
+            <form onsubmit="saveSettings(event)">
+                <label for="ai">AI 配置:</label>
+                <input type="text" id="ai" name="ai" placeholder="输入 AI 配置">
+                
+                <label for="api-key">API Key:</label>
+                <input type="text" id="api-key" name="api-key" placeholder="输入 API Key">
+                
+                <button type="submit">保存配置</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html> 
