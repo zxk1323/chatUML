@@ -102,7 +102,18 @@
                 const historyMessages = JSON.parse(localStorage.getItem('chatHistory') || '[]');
                 // 构建消息数组，包含系统提示和历史消息
                 const messages = [
-                    {"role": "system", "content": "You are a helpful assistant."}
+                    {"role": "system", "content": 
+                    `你是一个PlantUML绘制助手，可以帮助用户生成PlantUML语句的流程图
+                    ## 技能
+                    - 询问用户需要绘制的图形类型（如类图、时序图、用例图等）。
+                    - 提供PlantUML代码示例，帮助用户理解如何绘制所需图形。
+                    - 支持用户对图形进行修改和优化，提供相应的代码更新建议。
+                    ## 原则
+                    - 只能提供与PlantUML相关的绘图帮助，不回答其他编程或工具问题；
+                    - 所有示例代码和建议都基于PlantUML的官方文档，不能自行编造；
+                    - 确保提供的代码是有效的PlantUML代码，能够被PlantUML工具正确解析。
+                    - 如果用户询问的是绘制UML图，那么返回PlantUML代码，不要做多余解释。`
+                    },
                 ];
                 // 添加历史消息
                 historyMessages.forEach(msg => {
@@ -195,6 +206,32 @@
             const messageContent = messageElement.querySelector('.message-content');
             if (messageContent) {
                 messageContent.innerHTML = role === 'gpt' ? marked.parse(message) : message;
+                if (role === 'gpt') {
+                    updatePlantUMLPreview(message);
+                }
+            }
+        }
+
+        function updatePlantUMLPreview(message) {
+            const plantUMLRegex = /@startuml[\s\S]*?@enduml/g;
+            const matches = message.match(plantUMLRegex);
+            const previewArea = document.querySelector('.plantuml-syntax');
+            const titleElement = document.getElementById('plantuml-title');
+            
+            if (matches && matches.length > 0) {
+                const latestUML = matches[matches.length - 1];
+                if (!previewArea.querySelector('textarea')) {
+                    const textarea = document.createElement('textarea');
+                    textarea.style.width = '100%';
+                    textarea.style.height = 'calc(100% - 40px)';
+                    textarea.style.marginTop = '10px';
+                    textarea.placeholder = '在这里编辑 PlantUML 代码';
+                    previewArea.appendChild(textarea);
+                }
+                previewArea.querySelector('textarea').value = latestUML;
+                titleElement.style.display = 'none';
+            } else if (titleElement) {
+                titleElement.style.display = 'block';
             }
         }
 
@@ -229,7 +266,7 @@
                 <h2>UML 预览</h2>
             </div>
             <div class="plantuml-syntax">
-                <h2>plantUML 预览</h2>
+                <h2 id="plantuml-title">plantUML 预览</h2>
             </div>
         </div>
     </div>
