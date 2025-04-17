@@ -1,0 +1,118 @@
+<template>
+  <header class="nav-header">
+    <div class="container">
+      <div class="logo">
+        <router-link to="/">ChatUML</router-link>
+      </div>
+      <nav class="nav-menu">
+        <router-link to="/chatUML">{{ t('nav.goToApp') }}</router-link>
+        <router-link to="/examples">{{ t('nav.examples') }}</router-link>
+        <router-link to="/documentation">{{ t('nav.documentation') }}</router-link>
+        <router-link to="/settings">{{ t('nav.settings') }}</router-link>
+        <el-dropdown @command="handleLanguageChange">
+          <el-button>
+            {{ currentLanguage }}
+            <el-icon><arrow-down /></el-icon>
+          </el-button>
+          <template #dropdown>
+            <el-dropdown-menu>
+              <el-dropdown-item command="en">English</el-dropdown-item>
+              <el-dropdown-item command="zh">中文</el-dropdown-item>
+            </el-dropdown-menu>
+          </template>
+        </el-dropdown>
+      </nav>
+    </div>
+  </header>
+</template>
+
+<script setup>
+import { computed } from 'vue'
+import { useI18n } from 'vue-i18n'
+import { useRouter } from 'vue-router'
+import { ArrowDown } from '@element-plus/icons-vue'
+
+const { t, locale } = useI18n()
+const router = useRouter()
+
+const currentLanguage = computed(() => locale.value === 'en' ? 'English' : '中文')
+
+const handleLanguageChange = (lang) => {
+  locale.value = lang
+}
+
+</script>
+
+<style lang="scss" scoped>
+.nav-header {
+  background: #fff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    
+    a {
+      color: #4f46e5;
+      text-decoration: none;
+    }
+  }
+
+  .nav-menu {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+
+    a {
+      color: #374151;
+      text-decoration: none;
+      font-weight: 500;
+      
+      &:hover {
+        color: #4f46e5;
+      }
+
+      &.router-link-active {
+        color: #4f46e5;
+      }
+
+      &.try-button {
+        background: var(--primary-color);
+        color: white;
+        padding: 0.5rem 1rem;
+        border-radius: 0.5rem;
+        transition: all 0.2s;
+
+        &:hover {
+          background: var(--secondary-color);
+          color: white;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .nav-header {
+    .nav-menu {
+      gap: 1rem;
+      
+      a:not(.try-button) {
+        display: none;
+      }
+    }
+  }
+}
+</style> 
