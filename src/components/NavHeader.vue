@@ -2,7 +2,10 @@
   <header class="nav-header">
     <div class="container">
       <div class="logo">
-        <router-link to="/">ChatUML</router-link>
+        <router-link to="/">
+          <span class="main-title">ChatUML</span>
+          <span class="subtitle">AI-Powered UML Diagram Generator</span>
+        </router-link>
       </div>
       <nav class="nav-menu">
         <router-link to="/chatUML">{{ t('nav.goToApp') }}</router-link>
@@ -67,6 +70,19 @@ const handleLanguageChange = (lang) => {
     a {
       color: #4f46e5;
       text-decoration: none;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .main-title {
+      font-size: 1.5rem;
+      line-height: 1.2;
+    }
+    
+    .subtitle {
+      font-size: 0.7rem;
+      font-weight: normal;
+      color: #6b7280;
     }
   }
 

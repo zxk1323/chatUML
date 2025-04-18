@@ -1,7 +1,7 @@
 <template>
   <div class="examples">
     <div class="container">
-      <h1>Examples</h1>
+      <h1>{{ t('documentation.diagramTypesTitle') }}</h1>
       <div class="examples-grid">
         <div class="example-card" v-for="example in examples" :key="example.id">
           <img :src="example.image" :alt="example.title">
@@ -14,26 +14,44 @@
 </template>
 
 <script setup>
-const examples = [
-  {
-    id: 1,
-    title: 'Class Diagram',
-    description: 'Object-oriented design visualization with UML class diagrams',
-    image: '/examples/class-diagram.png'
-  },
-  {
-    id: 2,
-    title: 'Sequence Diagram',
-    description: 'Interaction flow between objects in a system',
-    image: '/examples/sequence-diagram.png'
-  },
-  {
-    id: 3,
-    title: 'Activity Diagram',
-    description: 'Business process and workflow visualization',
-    image: '/examples/activity-diagram.png'
-  }
-]
+import { computed } from 'vue'
+import { useI18n } from 'vue-i18n'
+
+// 导入图片资源
+import classEn from '@/assets/class-diagram-en.png'
+import classZh from '@/assets/class-diagram-zh.png'
+import sequenceEn from '@/assets/sequence-diagram-en.png'
+import sequenceZh from '@/assets/sequence-diagram-zh.png'
+import mindMapEn from '@/assets/mind-map-en.png'
+import mindMapZh from '@/assets/mind-map-zh.png'
+
+const { t, locale } = useI18n()
+
+const examples = computed(() => {
+  // 根据当前语言选择对应的图片
+  const isZh = locale.value === 'zh'
+  
+  return [
+    {
+      id: 1,
+      title: t('documentation.classTitle'),
+      description: t('documentation.classDesc'),
+      image: isZh ? classZh : classEn
+    },
+    {
+      id: 2,
+      title: t('documentation.sequenceTitle'),
+      description: t('documentation.sequenceDesc'),
+      image: isZh ? sequenceZh : sequenceEn
+    },
+    {
+      id: 3,
+      title: t('documentation.mindMapTitle'),
+      description: t('documentation.mindMapDesc'),
+      image: isZh ? mindMapZh : mindMapEn
+    }
+  ]
+})
 </script>
 
 <style lang="scss" scoped>

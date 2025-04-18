@@ -3,30 +3,30 @@ import { createI18n } from 'vue-i18n'
 const messages = {
   en: {
     nav: {
-      examples: 'Examples',
-      documentation: 'Documentation',
+      examples: 'UML Examples',
+      documentation: 'UML Documentation',
       settings: 'Settings',
-      goToApp: 'Try ChatUML'
+      goToApp: 'Create UML Diagram'
     },
     hero: {
-      title: 'Generate Professional Diagrams with AI',
-      subtitle: 'Transform your ideas into beautiful diagrams in seconds, not hours. Powered by advanced AI to understand your needs and create professional-grade visualizations.',
-      tryNow: 'Try Now',
-      learnMore: 'Learn More'
+      title: 'AI-Powered UML Diagram Generator | Create Professional UML Models Instantly',
+      subtitle: 'Transform your ideas into professional UML diagrams in seconds with our AI tool. Generate class diagrams, sequence diagrams, use case diagrams and more through simple conversation - no complex software needed.',
+      tryNow: 'Create UML Diagram Now',
+      learnMore: 'Explore UML Features'
     },
     features: {
-      title: 'Features',
+      title: 'ChatUML Features',
       aiPowered: {
-        title: 'AI-Powered Generation',
-        description: 'Advanced AI understands your requirements and generates accurate diagrams'
+        title: 'AI-Powered UML Generation',
+        description: 'Our advanced AI technology understands your requirements and generates accurate UML diagrams with perfect PlantUML syntax'
       },
       realTime: {
-        title: 'Real-time Collaboration',
-        description: 'Work together with your team in real-time'
+        title: 'Instant UML Visualization',
+        description: 'See your UML diagrams come to life in real-time as you describe them, with instant preview and code generation'
       },
       export: {
-        title: 'Multiple Export Formats',
-        description: 'Export your diagrams in various formats including PNG, SVG, and PDF'
+        title: 'Multiple UML Export Options',
+        description: 'Export your UML diagrams in various formats including PNG, SVG, and PDF for easy sharing and documentation'
       }
     },
     settings: {
@@ -57,7 +57,7 @@ const messages = {
       saveSuccess: 'Settings saved successfully'
     },
     chatuml: {
-      welcome: 'Hello! I\'m your ChatUML assistant. I can help you create UML diagrams. What would you like to create?',
+      welcome: 'Hello! I\'m your ChatUML assistant, the AI-powered UML diagram generator. I can help you create professional UML diagrams including class diagrams, sequence diagrams, use case diagrams, activity diagrams, and more. What type of UML diagram would you like to create today?',
       inputPlaceholder: 'Describe the diagram you want to create...',
       send: 'Send',
       clearChat: 'Clear Chat',
@@ -155,9 +155,9 @@ const messages = {
       useCaseDesc: 'Represent the functionality of a system and actors who interact with it.',
       useCasePrompt: 'Create a use case diagram for an e-commerce website with customer and admin actors.',
       
-      activityTitle: 'Activity Diagrams',
-      activityDesc: 'Illustrate the flow of activities in a process or operation.',
-      activityPrompt: 'Create an activity diagram for an order processing workflow.',
+      mindMapTitle: 'Mind Maps',
+      mindMapDesc: 'Organize ideas and concepts hierarchically around a central topic or theme.',
+      mindMapPrompt: 'Create a mind map for a project management system with key components and features.',
       
       // Tips & Tricks Section
       tipsTitle: 'Tips for Better Results',
@@ -196,30 +196,30 @@ const messages = {
   },
   zh: {
     nav: {
-      examples: '示例',
-      documentation: '文档',
+      examples: 'UML示例',
+      documentation: 'UML文档',
       settings: '设置',
-      goToApp: '试用 ChatUML'
+      goToApp: '创建UML图表'
     },
     hero: {
-      title: '使用 AI 生成专业图表',
-      subtitle: '在几秒钟内将您的想法转化为精美的图表，而不是几小时。由先进的 AI 提供支持，了解您的需求并创建专业级可视化。',
-      tryNow: '立即尝试',
-      learnMore: '了解更多'
+      title: 'AI驱动的UML图表生成工具 | 即时创建专业UML模型',
+      subtitle: '通过我们的AI工具，在几秒钟内将您的想法转化为专业UML图表。通过简单对话生成类图、序列图、用例图等 - 无需复杂软件。',
+      tryNow: '立即创建UML图表',
+      learnMore: '探索UML功能'
     },
     features: {
-      title: '功能特点',
+      title: 'ChatUML功能特点',
       aiPowered: {
-        title: 'AI 驱动生成',
-        description: '先进的 AI 理解您的需求并生成准确的图表'
+        title: 'AI驱动的UML生成',
+        description: '我们的先进AI技术理解您的需求，生成准确的UML图表，具有完美的PlantUML语法'
       },
       realTime: {
-        title: '实时协作',
-        description: '与您的团队实时协作'
+        title: 'UML即时可视化',
+        description: '当您描述图表时，实时查看UML图表生成，提供即时预览和代码生成'
       },
       export: {
-        title: '多种导出格式',
-        description: '以多种格式导出您的图表，包括 PNG、SVG 和 PDF'
+        title: '多种UML导出选项',
+        description: '以多种格式导出您的UML图表，包括PNG、SVG和PDF，便于分享和文档记录'
       }
     },
     settings: {
@@ -250,7 +250,7 @@ const messages = {
       saveSuccess: '设置保存成功'
     },
     chatuml: {
-      welcome: '你好！我是你的 ChatUML 助手。我可以帮你创建 UML 图表。你想创建什么？',
+      welcome: '你好！我是你的ChatUML助手，这是一个AI驱动的UML图表生成工具。我可以帮你创建专业的UML图表，包括类图、序列图、用例图、活动图等。今天你想创建哪种UML图表？',
       inputPlaceholder: '描述你想创建的图表...',
       send: '发送',
       clearChat: '清空对话',
@@ -348,9 +348,9 @@ const messages = {
       useCaseDesc: '表示系统的功能和与之交互的参与者。',
       useCasePrompt: '为电子商务网站创建一个包含客户和管理员角色的用例图。',
       
-      activityTitle: '活动图',
-      activityDesc: '说明流程或操作中的活动流程。',
-      activityPrompt: '为订单处理工作流创建活动图。',
+      mindMapTitle: '思维导图',
+      mindMapDesc: '围绕中心主题或概念层次化地组织想法和概念。',
+      mindMapPrompt: '为项目管理系统创建一个包含关键组件和功能的思维导图。',
       
       // Tips & Tricks Section
       tipsTitle: '获得更好结果的技巧',
