@@ -12,8 +12,9 @@
         <router-link to="/examples">{{ t('nav.examples') }}</router-link>
         <router-link to="/documentation">{{ t('nav.documentation') }}</router-link>
         <router-link to="/settings">{{ t('nav.settings') }}</router-link>
-        <el-dropdown @command="handleLanguageChange">
-          <el-button>
+        <el-dropdown @command="handleLanguageChange" class="language-dropdown">
+          <el-button class="language-button">
+            <span class="globe-icon">🌎</span>
             {{ currentLanguage }}
             <el-icon><arrow-down /></el-icon>
           </el-button>
@@ -114,6 +115,23 @@ const handleLanguageChange = (lang) => {
         &:hover {
           background: var(--secondary-color);
           color: white;
+        }
+      }
+    }
+    
+    .language-dropdown {
+      .language-button {
+        display: flex;
+        align-items: center;
+        font-weight: 500;
+        
+        .globe-icon {
+          margin-right: 0.5rem;
+          font-size: 1.1rem;
+        }
+        
+        .el-icon {
+          margin-left: 0.25rem;
         }
       }
     }
