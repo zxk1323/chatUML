@@ -1,6 +1,7 @@
 <script setup>
 import NavHeader from '@/components/NavHeader.vue'
 import NavFooter from '@/components/NavFooter.vue'
+import { SpeedInsights } from "@vercel/speed-insights/next"
 </script>
 
 <template>
